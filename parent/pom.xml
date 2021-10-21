@@ -129,12 +129,11 @@
     <plugin.version.surefire>3.0.0-M5</plugin.version.surefire>
     <plugin.version.versions>2.8.1</plugin.version.versions>
     <plugin.version.enforcer>3.0.0-M3</plugin.version.enforcer>
-    <plugin.version.dependency>3.1.2</plugin.version.dependency>
+    <plugin.version.dependency>3.2.0</plugin.version.dependency>
     <plugin.version.spotbugs>4.4.2.1</plugin.version.spotbugs>
     <plugin.version.sonar>3.9.0.2155</plugin.version.sonar>
     <plugin.version.sortpom>3.0.0</plugin.version.sortpom>
     <plugin.version.maven-jar>3.2.0</plugin.version.maven-jar>
-    <plugin.version.dependency-analyzer>1.11.1</plugin.version.dependency-analyzer>
     <plugin.version.jacoco>0.8.7</plugin.version.jacoco>
     <plugin.version.revapi>0.14.5</plugin.version.revapi>
     <plugin.version.flaky-tests>2.0.3</plugin.version.flaky-tests>
@@ -1273,45 +1272,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
           <version>${plugin.version.dependency}</version>
-          <!-- To run with Java 11 - https://issues.apache.org/jira/browse/MDEP-613-->
-          <dependencies>
-            <dependency>
-              <groupId>org.apache.maven.shared</groupId>
-              <artifactId>maven-dependency-analyzer</artifactId>
-              <version>${plugin.version.dependency-analyzer}</version>
-            </dependency>
-          </dependencies>
-
-          <executions>
-            <execution>
-              <id>analyze-dependencies</id>
-              <goals>
-                <goal>analyze-only</goal>
-              </goals>
-              <!-- The analyze-only goal assumes that the test-compile phase has been executed -->
-              <phase>verify</phase>
-              <configuration>
-                <failOnWarning>true</failOnWarning>
-                <outputXML>true</outputXML>
-                <!-- dependencies not directly used in all projects during tests -->
-                <ignoredUnusedDeclaredDependencies combine.children="append">
-                  <dep>org.apache.logging.log4j:log4j-slf4j-impl</dep>
-                  <dep>org.apache.logging.log4j:log4j-core</dep>
-                  <dep>io.camunda:zeebe-build-tools</dep>
-                  <dep>io.camunda:zeebe-gateway-protocol</dep>
-                  <dep>org.ow2.asm:asm</dep>
-                  <dep>org.apache.maven.surefire:surefire-junit4</dep>
-                  <dep>org.apache.maven.surefire:surefire-junit47</dep>
-                  <dep>org.apache.maven.surefire:surefire-junit-platform</dep>
-                  <dep>org.junit.jupiter:junit-jupiter-engine</dep>
-                  <dep>org.junit.vintage:junit-vintage-engine</dep>
-                  <dep>org.codehaus.plexus:plexus-utils:jar:1.1</dep>
-                  <dep>org.bouncycastle:bcpkix-jdk15on</dep>
-                  <dep>org.bouncycastle:bcprov-jdk15on</dep>
-                </ignoredUnusedDeclaredDependencies>
-              </configuration>
-            </execution>
-          </executions>
         </plugin>
 
         <plugin>
@@ -1622,19 +1582,6 @@
                 <phase>initialize</phase>
                 <configuration>
                   <silent>true</silent>
-                </configuration>
-              </execution>
-              <execution>
-                <id>analyze-dependencies</id>
-                <goals>
-                  <goal>analyze-only</goal>
-                </goals>
-                <phase>verify</phase>
-                <configuration>
-                  <ignoredUnusedDeclaredDependencies combine.children="append">
-                    <dep>org.revapi:revapi-java</dep>
-                    <dep>io.zeebe:flaky-test-extractor-maven-plugin</dep>
-                  </ignoredUnusedDeclaredDependencies>
                 </configuration>
               </execution>
             </executions>
