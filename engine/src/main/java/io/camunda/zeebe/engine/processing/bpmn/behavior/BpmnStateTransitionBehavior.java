@@ -126,7 +126,7 @@ public final class BpmnStateTransitionBehavior {
   }
 
   /**
-   * Verifies wether we have been called during incident resolving, which will call again the bpmn
+   * Verifies whether we have been called during incident resolving, which will call again the bpmn
    * processor#process method. This can cause that the transition activating, completing and
    * terminating are called multiple times. In other cases this should not happen, which is the
    * reason why we throw an exception.

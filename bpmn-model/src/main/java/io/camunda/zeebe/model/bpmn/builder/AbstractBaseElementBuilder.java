@@ -176,7 +176,7 @@ public abstract class AbstractBaseElementBuilder<
       }
     }
 
-    // create new message for non existing message name
+    // create new message for non-existing message name
     final Message message = createMessage();
     message.setName(messageName);
 
